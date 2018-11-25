@@ -15,8 +15,7 @@ type Metrics struct {
 func New() *Metrics {
 	issues := pr.NewGaugeVec(
 		pr.GaugeOpts{
-			Namespace: "youtrack",
-			Subsystem: "exporter",
+			Subsystem: "youtrack",
 			Name:      "issues",
 			Help:      "Issues counter",
 		},
@@ -25,8 +24,7 @@ func New() *Metrics {
 
 	errors := pr.NewCounterVec(
 		pr.CounterOpts{
-			Namespace: "youtrack",
-			Subsystem: "exporter",
+			Subsystem: "youtrack",
 			Name:      "errors",
 			Help:      "Errors counter",
 		},
