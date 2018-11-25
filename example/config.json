@@ -1,0 +1,8 @@
+{
+  "endpoint": "https://youtrack.company.com/",
+  "token": "perm:YWxleGtydXBpbg==.QWxleGFuZGVy.9nvYkHL4aHy0zHaEGIXmjcGjVNx6Kr",
+  "queries": {
+    "showstopper": "Show-Stopper #Unresolved #Unassigned",
+    "unresolved": "#Unresolved State: Submitted"
+  }
+}
