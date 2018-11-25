@@ -1,0 +1,40 @@
+sudo: required
+services:
+  - docker
+
+language: go
+go:
+  - 1.11
+
+jobs:
+  include:
+
+    - stage: Code Check
+      name: SonarQube Scanner
+      addons:
+        sonarcloud:
+          organization: "krpn-github"
+          token:
+            secure: $SONAR_TOKEN
+      install:
+        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        - dep ensure -v
+        - go get -u gopkg.in/alecthomas/gometalinter.v2
+        - $GOPATH/bin/gometalinter.v2 --install
+      script:
+        - $GOPATH/bin/gometalinter.v2 ./... --vendor --deadline=10m > gometalinter-report.out || true
+        - go test ./... -json > report.json
+        - go test ./... -coverprofile=coverage.out
+        - sonar-scanner
+      cache:
+        directories:
+          - '$HOME/.sonar/cache'
+
+    - stage: Build
+      name: Container Build
+      if: branch = master
+      install: skip
+      script:
+        - export IMAGE=$DOCKER_USER/$DOCKER_REPOSITORY
+        - export TAG="latest"
+        - docker build -f Dockerfile -t $IMAGE:$TAG .
