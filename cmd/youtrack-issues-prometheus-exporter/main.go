@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/alecthomas/kingpin"
 	"github.com/krpn/youtrack-issues-prometheus-exporter/config"
 	"github.com/krpn/youtrack-issues-prometheus-exporter/httpwrap"
 	"github.com/krpn/youtrack-issues-prometheus-exporter/monitoring"
@@ -13,8 +14,12 @@ import (
 	"time"
 )
 
+var configPath = kingpin.Flag("config", "Path to config file").Default("config/config.json").Short('c').String()
+
 func main() {
-	b, err := ioutil.ReadFile("config/config.json")
+	_ = kingpin.Parse()
+
+	b, err := ioutil.ReadFile(*configPath)
 	if err != nil {
 		panic(err)
 	}

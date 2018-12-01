@@ -17,7 +17,7 @@ func New() *Metrics {
 		pr.GaugeOpts{
 			Subsystem: "youtrack",
 			Name:      "issues",
-			Help:      "Issues counter",
+			Help:      "Query issues",
 		},
 		[]string{"query", "id", "title"},
 	)
